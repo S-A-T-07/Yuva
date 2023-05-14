@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Flask App</title>
+  </head>
+  <body>
+    <h1>Upload Excel File</h1>
+    <form method="POST" action="/upload" enctype="multipart/form-data">
+      <input type="file" name="file" accept=".xlsx" />
+      <input type="submit" value="Upload" />
+    </form>
+
+    <h1>Data</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Column 1</th>
+          <th>Column 2</th>
+          <th>Column 3</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in data %}
+        <tr>
+          <td>{{ item.id }}</td>
+          <td>{{ item.column1 }}</td>
+          <td>{{ item.column2 }}</td>
+          <td>{{ item.column3 }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>
