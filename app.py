@@ -15,6 +15,10 @@ class Data(db.Model):
     def __repr__(self):
         return f'<Data {self.id}>'
 
+def create_database():
+    with app.app_context():
+        db.create_all()
+
 @app.route('/')
 def index():
     data = Data.query.all()
@@ -24,8 +28,10 @@ def index():
 def upload():
     file = request.files['file']
     df = pd.read_excel(file)
-    df.to_sql('data', con=db.engine, if_exists='append', index=False)
+    with app.app_context():
+        df.to_sql('data', con=db.engine, if_exists='append', index=False)
     return 'File uploaded successfully'
 
 if __name__ == '__main__':
+    create_database()
     app.run(debug=True)
